@@ -1,10 +1,15 @@
 from django.shortcuts import render
+from rest_framework.parsers import MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from .models import Automobile, Parts, PartFile
 from .serializers import AutomobileSerializer, PartsSerializer, PartFileSerializer
+from django.core.files.storage import FileSystemStorage
+import os
+
+
 
 # Create your views here.
 
@@ -75,3 +80,26 @@ class PartsListApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class FileUploadView(APIView):
+    parser_classes = (MultiPartParser, )
+
+    def post(self, request, format=None):
+        file_obj = request.FILES['file']
+
+        print(request.FILES)
+        print(request.data)
+        tmp_address = os.path.join(f'media/', file_obj.name)
+        fss = FileSystemStorage(location=tmp_address, base_url=tmp_address)
+        filename = fss.save(file_obj.name, file_obj)
+        url = fss.url(filename)
+        print(file_obj.name.encode("utf-8"))
+        data = {
+            'file': file_obj,
+            'parts': self.request.query_params.get('parts'),
+        }
+        serializer = PartFileSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(file_obj.name, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

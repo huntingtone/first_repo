@@ -49,7 +49,10 @@ class PartsListApiView(APIView):
         '''
         List all the todo items for given requested user
         '''
-        parts = self.get_queryset()
+        # self.request = request
+        # automobile = self.get_queryset()
+        manufacturer = self.request.query_params.get('manufacturer')
+        parts = Parts.objects.filter(autom__manufacturer__contains=manufacturer)
         serializer = PartsSerializer(parts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -57,10 +60,10 @@ class PartsListApiView(APIView):
         parts = Parts.objects.filter(autom=automobile)
         return parts
 
-    def get_queryset(self):
-        manufacturer = self.request.query_params.get('manufacturer')
-        queryset = Automobile.objects.filter(manufacturer=manufacturer)
-        return  queryset
+    # def get_queryset(self):
+    #
+    #     queryset = Automobile.objects.filter(manufacturer=manufacturer)
+    #     return  queryset
 
 
     def post(self, request, *args, **kwargs):

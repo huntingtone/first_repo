@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Automobile(models.Model):
+    automobile_id = models.AutoField(primary_key=True)
     manufacturer = models.CharField(max_length=180)
     tipe = models.CharField(max_length=180)
     modl = models.CharField(max_length=180)
@@ -13,11 +14,13 @@ class Automobile(models.Model):
 
 
 class Parts(models.Model):
+    parts_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=180)
     autom = models.ForeignKey(Automobile, on_delete=models.CASCADE)
 
 
 class PartFile(models.Model):
+    file_id = models.AutoField(primary_key=True)
     file = models.FileField()
     parts = models.ForeignKey(Parts, related_name="files", on_delete=models.CASCADE)
 

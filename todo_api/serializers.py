@@ -11,7 +11,7 @@ class AutomobileSerializer(serializers.ModelSerializer):
 class PartsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parts
-        fields = ["name"]
+        fields = ["name", "autom"]
 
 
 class PartFileSerializer(serializers.ModelSerializer):

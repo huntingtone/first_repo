@@ -52,18 +52,11 @@ class PartsListApiView(APIView):
         # self.request = request
         # automobile = self.get_queryset()
         manufacturer = self.request.query_params.get('manufacturer')
+        if manufacturer is None:
+            manufacturer = ''
         parts = Parts.objects.filter(autom__manufacturer__contains=manufacturer)
         serializer = PartsSerializer(parts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-        automobile = Automobile.objects.filter(manufacturer=request.Automobile.manufacturer)
-        parts = Parts.objects.filter(autom=automobile)
-        return parts
-
-    # def get_queryset(self):
-    #
-    #     queryset = Automobile.objects.filter(manufacturer=manufacturer)
-    #     return  queryset
 
 
     def post(self, request, *args, **kwargs):
@@ -71,14 +64,14 @@ class PartsListApiView(APIView):
         Create the Todo with given todo data
         '''
         data = {
-            'manufacturer': request.data.get('manufacturer'),
-            'tipe': request.data.get('tipe'),
-            'modl': request.data.get('modl'),
-            'user': request.user.id
+            'name': request.data.get('name'),
+            'autom': request.data.get('autom'),
         }
-        serializer = AutomobileSerializer(data=data)
+        serializer = PartsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

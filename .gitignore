@@ -1,4 +1,5 @@
 # Images
 migrations/
 media/
+.idea/
 db.sqlite3

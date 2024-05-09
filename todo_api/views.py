@@ -86,7 +86,7 @@ class FileUploadView(APIView):
     def post(self, request, format=None):
         '''
         to check this one you can enjoy some curl like below:
-        curl -X POST -H "Content-Type:multipart/form-data" -u admin:user -F "file=/Users/sayedmohmmadrazavi/Desktop/photo.jpg" http://127.0.0.1:8000/autos/upload
+        curl -X POST -H "Content-Type:multipart/form-data" -u admin:user -F "file=/Users/sayedmohmmadrazavi/Desktop/photo.jpg" http://127.0.0.1:8000/autos/upload?manufacturer=manufacturer1
         '''
         parts = request.query_params.get('parts')
         if parts:
@@ -105,4 +105,5 @@ class FileUploadView(APIView):
                 serializer.save()
                 return Response(file_obj.name, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

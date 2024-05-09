@@ -1,4 +1,4 @@
-A little bit busy now. I'll update it soon :wink:
+As I promised I updated it :wink:
 
 download, install requirements.txt, migrate, create a superuser for authentication
 

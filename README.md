@@ -5,6 +5,7 @@ download, install requirements.txt, migrate, create a superuser for authenticati
 first and foremost you should login to api using http://127.0.0.1:8000/api-auth/login
 
 http://127.0.0.1:8000/autos/api
+
 http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
 
 pattern to add records for automobile (remember that you should add records one by one):

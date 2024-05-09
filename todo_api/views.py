@@ -84,22 +84,25 @@ class FileUploadView(APIView):
     parser_classes = (MultiPartParser, )
 
     def post(self, request, format=None):
-        file_obj = request.FILES['file']
+        '''
+        to check this one you can enjoy some curl like below:
+        curl -X POST -H "Content-Type:multipart/form-data" -u admin:user -F "file=/Users/sayedmohmmadrazavi/Desktop/photo.jpg" http://127.0.0.1:8000/autos/upload
+        '''
+        parts = request.query_params.get('parts')
+        if parts:
+            file_obj = request.FILES['file']
 
-        print(request.FILES)
-        print(request.data)
-        tmp_address = os.path.join(f'media/', file_obj.name)
-        fss = FileSystemStorage(location=tmp_address, base_url=tmp_address)
-        filename = fss.save(file_obj.name, file_obj)
-        url = fss.url(filename)
-        print(file_obj.name.encode("utf-8"))
-        data = {
-            'file': file_obj,
-            'parts': self.request.query_params.get('parts'),
-        }
-        serializer = PartFileSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(file_obj.name, status=status.HTTP_201_CREATED)
+            tmp_address = os.path.join(f'media/' + parts + '/', file_obj.name)
+            fss = FileSystemStorage(location=tmp_address, base_url=tmp_address)
+            filename = fss.save(file_obj.name, file_obj)
+            url = fss.url(filename)
+            data = {
+                'file': file_obj,
+                'parts': parts,
+            }
+            serializer = PartFileSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(file_obj.name, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

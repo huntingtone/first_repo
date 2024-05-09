@@ -9,6 +9,7 @@ http://127.0.0.1:8000/autos/api
 http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
 
 pattern to add records for automobile (remember that you should add records one by one):
+
 {
     "manufacturer": "manufacturer1",
     "tipe": "tipe1",

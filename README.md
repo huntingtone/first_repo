@@ -9,7 +9,7 @@ http://127.0.0.1:8000/autos/api
 http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
 
 # pattern to add records for automobile (remember that you should add records one by one):
-
+```
 {
     "manufacturer": "manufacturer1",
     "tipe": "tipe1",
@@ -30,9 +30,9 @@ http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
     "modl": "modl2",
     "user": 1
 }
-
+```
 # pattern to add records for parts (remember that you should add records one by one):
-
+```
 {
     "name": "gear1",
     "autom": 1
@@ -73,7 +73,7 @@ http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
     "name": "wheel2",
     "autom": 2
 }
-
+```
 # after adding automobiles and parts you can upload files related to parts using post request like below:
 ```
 curl -X POST -H "Content-Type:multipart/form-data" -u admin:user -F "file=@/Users/sayedmohmmadrazavi/Desktop/photo.jpg" http://127.0.0.1:8000/autos/upload?parts=1

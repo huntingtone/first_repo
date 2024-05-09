@@ -32,6 +32,7 @@ pattern to add records for automobile (remember that you should add records one 
 }
 
 pattern to add records for parts (remember that you should add records one by one):
+
 {
     "name": "gear1",
     "autom": 1

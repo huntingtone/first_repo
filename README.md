@@ -78,3 +78,7 @@ http://127.0.0.1:8000/autos/parts?manufacturer=manufacturer1
 ```
 curl -X POST -H "Content-Type:multipart/form-data" -u admin:user -F "file=@/Users/sayedmohmmadrazavi/Desktop/photo.jpg" http://127.0.0.1:8000/autos/upload?parts=1
 ```
+### you can download all files by know their part id and their name from the link patter below (consider part_id:1 and the file name is water_tank.png):
+```
+http://127.0.0.1:8000/autos/download/1/water_tank.png
+```

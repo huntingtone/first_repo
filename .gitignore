@@ -1,0 +1,6 @@
+# Images
+migrations/
+media/
+.idea/
+db.sqlite3
+todo_api/migrations
